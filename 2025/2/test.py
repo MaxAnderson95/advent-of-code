@@ -1,4 +1,4 @@
-from solution import get_input, solution_part_one, solution_part_two
+from solution_day_two import get_input, solution_part_one, solution_part_two
 
 input = get_input()
 
