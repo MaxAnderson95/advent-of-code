@@ -21,6 +21,9 @@ def solve(input: str, need: int) -> int:
                 if int(bank[j]) > highest:
                     highest = int(bank[j])
                     highest_idx = j
+
+                    if highest == 9:
+                        break # No single digit is larger than 9, so we can optimize by stopping looking.
             
             string += str(highest)
             found_count += 1
@@ -38,6 +41,6 @@ def solution_part_two(input: str) -> int:
 
 
 if __name__ == "__main__":
-    input = get_input("input.txt")
+    input = get_input("input_sample.txt")
     print(solution_part_one(input))
     print(solution_part_two(input))
