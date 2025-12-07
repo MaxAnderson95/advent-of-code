@@ -1,0 +1,76 @@
+import pathlib
+import sys
+
+PAPER = "@"
+
+def get_input(file_name: str = "input.txt") -> list[str]:
+    with open(pathlib.Path(sys.path[0], file_name)) as f:
+        data = f.readlines()
+    return [line.rstrip() for line in data]
+
+
+def solution_part_one(input: str) -> int:
+    height = len(input)
+    width = len(input[0])
+    accum = 0
+
+    for row_idx, line in enumerate(input):
+        for col_idx, spot in enumerate(line):
+            # Are we on an @?
+            if spot == PAPER:
+                count = 0
+                
+                # Check left
+                if col_idx != 0: # Bounds check
+                    if line[col_idx - 1] == PAPER:
+                        count += 1
+                
+                # Check above
+                if row_idx != 0: # Bounds check
+                    if input[row_idx - 1][col_idx] == PAPER:
+                        count += 1
+
+                # Check above and left
+                if row_idx != 0 and col_idx != 0: # Bounds check
+                    if input[row_idx - 1][col_idx - 1] == PAPER:
+                        count += 1
+
+                # Check right
+                if col_idx != width - 1: # Bounds check
+                    if line[col_idx + 1] == PAPER:
+                        count += 1
+
+                # Check above and right
+                if row_idx != 0 and col_idx != width - 1: # Bounds check
+                    if input[row_idx - 1][col_idx + 1] == PAPER:
+                        count += 1
+
+                # Check below
+                if row_idx != height - 1: # Bounds check
+                    if input[row_idx + 1][col_idx] == PAPER:
+                        count += 1
+
+                # Check below and left
+                if row_idx != height - 1 and col_idx != 0: # Bounds check
+                    if input[row_idx + 1][col_idx - 1] == PAPER:
+                        count += 1
+
+                # Check below and right
+                if row_idx != height - 1 and col_idx != width - 1: # Bounds check
+                    if input[row_idx + 1][col_idx + 1] == PAPER:
+                        count += 1
+
+                # If there were 3 or fewer rolls of paper?
+                if count <= 3:
+                    accum += 1
+
+    return accum
+
+def solution_part_two(input: str) -> int:
+    pass
+
+
+if __name__ == "__main__":
+    input = get_input("input.txt")
+    print(solution_part_one(input))
+    # print(solution_part_two(input))
